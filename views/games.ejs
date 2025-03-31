@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <a href="/" class="logo">Game Portal</a>
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/games">Games</a></li>
+                    <li><a href="/signin">Sign In</a></li>
+                    <li><a href="/signup">Sign Up</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <h2 class="text-center">Available Games</h2>
+        <div class="container">
+
+        
+            <section class="featured-games">
+
+                <div class="games-grid">
+                    <% games.forEach(game => { %>
+                        <div class="card">
+                            <img src="<%= game.image || '/placeholder.svg?height=200&width=300' %>" alt="<%= game.title %>" class="card-img">
+                            <div class="card-body">
+                                <h3 class="card-title"><%= game.title %></h3>
+                                <p class="card-text">
+                                    <%= game.description || 'Play this classic game and challenge yourself!' %>
+                                </p>
+                                <a href="<%= game.path %>" class="btn btn-primary">Play Now</a>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Game Portal. All rights reserved.</p>
+    </footer>
+</body>
+</html>
