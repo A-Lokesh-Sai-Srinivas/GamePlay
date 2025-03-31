@@ -4,25 +4,36 @@ const admin = require("firebase-admin")
 const path = require("path")
 const session = require("express-session")
 const { v4: uuidv4 } = require("uuid")
-const request = require("express").request;
 
+// Initialize Firebase Admin
 let firebaseConfig;
-if (process.env.FIREBASE_PRIVATE_KEY) {
-  firebaseConfig = {
-    credential: admin.credential.cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-    }),
-  };
-} else {
-  const serviceAccount = require("./serviceAccountKey.json");
-  firebaseConfig = {
-    credential: admin.credential.cert(serviceAccount),
-  };
+try {
+  if (process.env.FIREBASE_PRIVATE_KEY) {
+    firebaseConfig = {
+      credential: admin.credential.cert({
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      }),
+    };
+  } else if (process.env.NODE_ENV !== 'production') {
+    // Only try to load local service account file in development
+    const serviceAccount = require("./serviceAccountKey.json");
+    firebaseConfig = {
+      credential: admin.credential.cert(serviceAccount),
+    };
+  } else {
+    throw new Error('Firebase configuration is missing');
+  }
+  
+  admin.initializeApp(firebaseConfig);
+} catch (error) {
+  console.error('Firebase initialization error:', error.message);
+  // In production, we might want to exit
+  if (process.env.NODE_ENV === 'production') {
+    process.exit(1);
+  }
 }
-
-admin.initializeApp(firebaseConfig);
 
 const auth = admin.auth()
 const db = admin.firestore()
