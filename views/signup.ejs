@@ -7,17 +7,19 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <div class="logo">
-        <img src="/images/logo.png" alt="Game Portal Logo"> Game Portal
+    <div class="login-logo">
+        <img src="/images/logo.png" alt="Game Portal Logo">
+        <span>Game Portal</span>
     </div>
-    <div class="container">
-        <form action="/signup" method="POST">
-            <input type="text" name="name" placeholder="Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Sign Up</button>
+    <div class="login-container">
+        <form class="login-form" action="/signup" method="POST">
+            <input type="text" class="login-input" name="name" placeholder="Name" required>
+            <input type="email" class="login-input" name="email" placeholder="Email" required>
+            <input type="password" class="login-input" name="password" placeholder="Password" required>
+            <button type="submit" class="login-button">Sign Up</button>
         </form>
-        <p>&copy; <%= new Date().getFullYear() %> Game Portal. All rights reserved.</p>
+        <p>Already have an account? <a href="/signin">Sign In</a></p>
+        <p class="copyright">&copy; <%= new Date().getFullYear() %> Game Portal. All rights reserved.</p>
     </div>
 </body>
 </html>

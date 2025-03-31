@@ -357,6 +357,80 @@ a:hover {
   margin-bottom: 3rem;
 }
 
+/* Login and Signup Forms */
+.login-logo {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.login-logo img {
+  height: 50px;
+  width: auto;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 20px var(--shadow);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-input[type="text"],
+.login-input[type="email"],
+.login-input[type="password"] {
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: border-color var(--transition-speed);
+}
+
+.login-input[type="text"]:focus,
+.login-input[type="email"]:focus,
+.login-input[type="password"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.login-button[type="submit"] {
+  padding: 0.8rem 1rem;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.login-button[type="submit"]:hover {
+  background-color: var(--accent-hover);
+}
+
+.login-container p {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
 @media (max-width: 768px) {
   .header {
     height: auto;
