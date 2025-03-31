@@ -6,11 +6,23 @@ const session = require("express-session")
 const { v4: uuidv4 } = require("uuid")
 const request = require("express").request;
 
-const serviceAccount = require("./serviceAccountKey.json")
+let firebaseConfig;
+if (process.env.FIREBASE_PRIVATE_KEY) {
+  firebaseConfig = {
+    credential: admin.credential.cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    }),
+  };
+} else {
+  const serviceAccount = require("./serviceAccountKey.json");
+  firebaseConfig = {
+    credential: admin.credential.cert(serviceAccount),
+  };
+}
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-})
+admin.initializeApp(firebaseConfig);
 
 const auth = admin.auth()
 const db = admin.firestore()
@@ -212,7 +224,6 @@ if (!fs.existsSync(publicImagesDir)) {
   fs.mkdirSync(publicImagesDir, { recursive: true })
 }
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server running on http://localhost:${port}`)
 })
-
